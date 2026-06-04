@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+
+    # GPU passthrough - REQUIRED for fast inference
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    # Port mapping - Ollama API
+    ports:
+      - '11434:11434'
+
+    # Persistent storage for models
+    volumes:
+      - ollama_models:/root/.ollama
+
+    # Environment variables (optional customization)
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+      # Uncomment to limit GPU memory (in GB)
+      # - OLLAMA_GPU_MEMORY_LIMIT=10
+
+    # Health check
+    healthcheck:
+      test: ['CMD', 'ollama', 'list']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+# Named volume for model persistence
+volumes:
+  ollama_models:
+    driver: local
