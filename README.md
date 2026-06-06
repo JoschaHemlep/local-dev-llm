@@ -53,6 +53,37 @@ docker exec -it ollama ollama pull qwen2.5-coder:7b
 3. The extension will auto-detect Ollama on `localhost:11434`
 4. Start coding with AI assistance!
 
+### 5. Enable Agent Tools With Devstral
+
+If you want Continue to create and edit files in Agent mode with `devstral:latest`, use the global Continue config on the Windows side:
+
+```yaml
+name: Local Ollama Config
+version: 1.0.0
+schema: v1
+
+models:
+  - uses: ollama/devstral
+    override:
+      name: Devstral
+      apiBase: http://localhost:11434
+      capabilities:
+        - tool_use
+      roles:
+        - chat
+        - edit
+        - apply
+```
+
+For this WSL + VS Code setup, the active Continue config is typically `%USERPROFILE%\\.continue\\config.yaml` on Windows, not the Linux `~/.continue/config.yaml` path inside WSL.
+
+After changing the config:
+
+1. Open the Command Palette
+2. Run `Developer: Reload Window`
+3. Re-select `Devstral` in Continue
+4. Use Agent mode for file creation/edit requests
+
 ## Management Script (Recommended)
 
 For easier management, use the included `ollama.sh` script:
@@ -143,6 +174,14 @@ docker run --rm --gpus all nvidia/cuda:12.6.0-base-ubuntu22.04 nvidia-smi
 ```bash
 curl http://localhost:11434/api/tags
 ```
+
+**Continue Agent mode answers in plain chat and does not edit files?**
+
+- Make sure the selected Continue model is `Devstral`
+- Ensure the model has `capabilities: [tool_use]`
+- Prefer the published `uses: ollama/devstral` block over a fully manual model stanza
+- Reload VS Code after editing the Continue config
+- Continue can fall back to system-message tools, but the model still needs to follow tool instructions reliably
 
 **Out of disk space?**
 

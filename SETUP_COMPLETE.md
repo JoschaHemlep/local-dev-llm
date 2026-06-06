@@ -5,7 +5,7 @@ Your local LLM development environment is now fully operational.
 ## What's Running
 
 - **Ollama Server**: Running in Docker with GPU acceleration
-- **Model**: Qwen2.5-Coder 7B (4.7GB)
+- **Primary Agent Model**: Devstral Latest (14GB)
 - **API Endpoint**: http://localhost:11434
 - **VS Code Extension**: Continue (configured)
 
@@ -21,7 +21,7 @@ Your local LLM development environment is now fully operational.
 
 - Press `Ctrl+L` (or `Cmd+L` on Mac) to open the Continue sidebar
 - Type your coding questions or requests
-- The AI will use your local Qwen2.5-Coder model
+- Select `Devstral` for agent tasks that need file edits or file creation
 
 ### 2. Inline Code Completion
 
@@ -71,7 +71,7 @@ docker exec -it ollama ollama pull codellama:7b
 ### Switch Models in Continue
 
 1. Open Continue settings (click gear icon in Continue sidebar)
-2. Edit `~/.continue/config.yaml`
+2. Edit `%USERPROFILE%\\.continue\\config.yaml`
 3. Change the `model` field to your desired model
 4. Reload VS Code
 
@@ -122,7 +122,7 @@ docker exec -it ollama ollama pull phi3.5:latest
 ## Configuration Files
 
 - **Docker Compose**: `docker-compose.yml`
-- **Continue Config**: `~/.continue/config.yaml`
+- **Continue Config**: `%USERPROFILE%\\.continue\\config.yaml`
 - **Project Docs**: `PLAN.md`, `README.md`
 
 ## Resources

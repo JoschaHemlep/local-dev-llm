@@ -172,7 +172,8 @@ cmd_info() {
     echo ""
     echo "Container: ollama"
     echo "API Endpoint: http://localhost:11434"
-    echo "Continue Config: ~/.continue/config.yaml"
+    echo "Continue Config (Windows VS Code): %USERPROFILE%\\.continue\\config.yaml"
+    echo "Continue Config (WSL path example): /c/Users/<windows-user>/.continue/config.yaml"
     echo ""
     
     if is_running; then

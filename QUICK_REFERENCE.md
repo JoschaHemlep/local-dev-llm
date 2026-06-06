@@ -101,7 +101,23 @@ curl http://localhost:11434/api/chat -d '{
 ### Configuration File
 
 ```bash
-~/.continue/config.yaml
+%USERPROFILE%\\.continue\\config.yaml
+```
+
+### Devstral Agent Config
+
+```yaml
+models:
+  - uses: ollama/devstral
+    override:
+      name: Devstral
+      apiBase: http://localhost:11434
+      capabilities:
+        - tool_use
+      roles:
+        - chat
+        - edit
+        - apply
 ```
 
 ### Reload Continue
@@ -153,7 +169,7 @@ docker exec -it ollama nvidia-smi   # Check GPU access in container
 curl http://localhost:11434/api/tags
 
 # Edit Continue config
-code ~/.continue/config.yaml
+code /c/Users/<windows-user>/.continue/config.yaml
 
 # Restart VS Code
 ```
