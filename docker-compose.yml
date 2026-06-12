@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   ollama:
     image: ollama/ollama:latest
@@ -31,11 +29,11 @@ services:
 
     # Health check
     healthcheck:
-      test: ['CMD', 'ollama', 'list']
+      test: ['CMD', 'curl', '-f', 'http://localhost:11434/api/tags']
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 10s
+      start_period: 30s  # give GPU init more time
 
 # Named volume for model persistence
 volumes:
